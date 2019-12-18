@@ -77,7 +77,7 @@ const BottomTabNavigator = createBottomTabNavigator(
         const {routeName} = navigation.state;
         switch (routeName) {
           case BOTTOM_TAB_ROUTE_NAME.HomeTab:
-            return <Icon color={tintColor} size={20} name="home" />;
+            return <Icon color={tintColor} size={20} name="star" />;
           case BOTTOM_TAB_ROUTE_NAME.FavoritesTab:
             return <Icon color={tintColor} size={20} name="heart" />;
           default:
