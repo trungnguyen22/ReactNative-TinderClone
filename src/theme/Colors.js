@@ -9,7 +9,7 @@ export const AppColorPallete = {
     secondary: '#62D7C6',
     onSecondary: '#212121',
     // background
-    background: '#313131',
+    background: '#f3f3f3',
     onBackground: '#ffffff',
     // surface
     surface: '#323232',
