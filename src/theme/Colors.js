@@ -17,7 +17,7 @@ export const AppColorPallete = {
     // bottom tab bar
     bottomTabBar: '#ffffff',
     activeBottomTabBar: '#ffa259',
-    inactiveBottomTabBar: '#000000',
+    inactiveBottomTabBar: '#e5dfdf',
     // header bar
     headerBar: '#525252',
     headerBarTintColor: '#ffffff',
@@ -39,5 +39,8 @@ export const AppColorPallete = {
     errorColor: '',
     defaultStatusBar: '#000000',
     text: '#ffffff',
+    overlayLabelCardSwiperLiked: '#71a95a',
+    overlayLabelCardSwiperSkipped: '#f67280',
+    overlayLabelCardSwiperSuperLike: '#3fc5f0',
   },
 };
