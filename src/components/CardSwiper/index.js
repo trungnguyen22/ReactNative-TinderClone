@@ -110,6 +110,7 @@ class CardSwiper extends PureComponent {
         overlayLabels={overlayLabels}
         animateOverlayLabelsOpacity
         animateCardOpacity
+        disableBottomSwipe
       />
     );
   }
