@@ -12,7 +12,12 @@ import {AppColorPallete} from '../theme';
 
 const HomeStackNavigator = createStackNavigator(
   {
-    [SCREEN_STACK_ROUTE_NAME.Home]: {screen: HomeScreen},
+    [SCREEN_STACK_ROUTE_NAME.Home]: {
+      screen: HomeScreen,
+      navigationOptions: {
+        header: null,
+      },
+    },
   },
   {
     initialRouteName: SCREEN_STACK_ROUTE_NAME.Home,
