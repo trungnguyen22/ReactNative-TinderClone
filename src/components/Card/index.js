@@ -6,8 +6,7 @@ import {SCREEN_HEIGHT} from '../../theme';
 
 const styles = StyleSheet.create({
   card: {
-    justifyContent: 'center',
-    height: scale((SCREEN_HEIGHT * 2) / 3),
+    // height: scale((SCREEN_HEIGHT * 2) / 3),
     borderRadius: 4,
     borderWidth: 2,
     borderColor: '#E8E8E8',
@@ -17,11 +16,8 @@ const styles = StyleSheet.create({
 
 class Card extends PureComponent {
   render() {
-    return (
-      <View style={styles.card}>
-        <Text> textInComponent </Text>
-      </View>
-    );
+    const {containerStyle, child} = this.props;
+    return <View style={[styles.card, containerStyle]}>{child}</View>;
   }
 }
 
