@@ -77,9 +77,9 @@ const OVERLAY_LABELS_OBJ = {
 };
 
 class CardSwiper extends PureComponent {
-  onSwiped = type => {
-    console.log(`on Swiped ${type}`);
-    this.props.onSwiped(type);
+  onSwiped = (type, index) => {
+    console.tron.log(`on Swiped ${type} - ${index}`);
+    this.props.onSwiped(type, index);
   };
 
   render() {
@@ -96,11 +96,11 @@ class CardSwiper extends PureComponent {
           this.swiper = swiper;
         }}
         containerStyle={containerStyle}
-        onSwiped={() => this.onSwiped('general')}
-        onSwipedLeft={() => this.onSwiped('left')}
-        onSwipedRight={() => this.onSwiped('right')}
-        onSwipedTop={() => this.onSwiped('top')}
-        onSwipedBottom={() => this.onSwiped('bottom')}
+        onSwiped={index => this.onSwiped('general', index)}
+        onSwipedLeft={index => this.onSwiped('left', index)}
+        onSwipedRight={index => this.onSwiped('right', index)}
+        onSwipedTop={index => this.onSwiped('top', index)}
+        onSwipedBottom={index => this.onSwiped('bottom', index)}
         onTapCard={this.swipeLeft}
         cards={dataSource}
         cardIndex={cardIndex}
