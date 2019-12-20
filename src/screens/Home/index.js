@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, StyleSheet} from 'react-native';
+import _ from 'lodash';
 
 import {commonStyles, AppColorPallete} from '../../theme';
 import CardSwiper from '../../components/CardSwiper';
@@ -8,7 +9,10 @@ import {UserCard} from '../../components/UserCard';
 import {
   fetchRandomPerson,
   updateListFavoritePerson,
+  deleteRandomPerson,
 } from '../../redux/actions/randomPerson';
+import EmptyData from '../../components/Empty';
+import FullscreenLoading from '../../components/FullscreenLoading';
 
 const styles = StyleSheet.create({
   swiper: {
@@ -21,16 +25,21 @@ class HomeScreen extends Component {
     super(props);
   }
 
+  preloadData = () => {
+    for (let i = 0; i < 5; i += 1) {
+      this.props.fetchRandomPerson();
+    }
+  };
+
   componentDidMount() {
-    // Pre-fetch 4 random person
-    this.props.fetchRandomPerson();
-    this.props.fetchRandomPerson();
-    this.props.fetchRandomPerson();
-    this.props.fetchRandomPerson();
-    this.props.fetchRandomPerson();
+    this.preloadData();
   }
 
   onUserCardPress = (item, index) => {};
+
+  onReloadPress = () => {
+    this.preloadData();
+  };
 
   renderCard = (card, index) => {
     return card ? (
@@ -40,32 +49,41 @@ class HomeScreen extends Component {
 
   onSwiped = (type, index) => {
     const {listRandomPerson} = this.props;
+    const person = listRandomPerson[index];
     switch (type) {
       case 'right':
-        this.props.updateListFavoritePerson(listRandomPerson[index]);
+        this.props.updateListFavoritePerson(person);
+        this.props.deleteRandomPerson(person.phone);
         this.props.fetchRandomPerson();
         break;
       case 'left':
+        this.props.deleteRandomPerson(person.phone);
         this.props.fetchRandomPerson();
         break;
       case 'top':
         this.props.updateListFavoritePerson(listRandomPerson[index]);
+        this.props.deleteRandomPerson(person.phone);
         this.props.fetchRandomPerson();
         break;
     }
   };
 
   render() {
-    const {listRandomPerson} = this.props;
+    const {listRandomPerson, isGettingRandomPerson} = this.props;
     return (
       <View style={commonStyles.container}>
-        <CardSwiper
-          containerStyle={styles.swiper}
-          dataSource={listRandomPerson}
-          cardIndex={0}
-          renderCard={this.renderCard}
-          onSwiped={this.onSwiped}
-        />
+        {!_.isEmpty(listRandomPerson) ? (
+          <CardSwiper
+            containerStyle={styles.swiper}
+            dataSource={listRandomPerson}
+            cardIndex={0}
+            renderCard={this.renderCard}
+            onSwiped={this.onSwiped}
+          />
+        ) : (
+          <EmptyData onReloadPress={this.onReloadPress} />
+        )}
+        {isGettingRandomPerson ? <FullscreenLoading /> : null}
       </View>
     );
   }
@@ -75,6 +93,7 @@ const mapDispatchToProps = dispatch => ({
   fetchRandomPerson: () => dispatch(fetchRandomPerson()),
   updateListFavoritePerson: person =>
     dispatch(updateListFavoritePerson(person)),
+  deleteRandomPerson: phone => dispatch(deleteRandomPerson(phone)),
 });
 
 const mapStateToProps = state => ({
