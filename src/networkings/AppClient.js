@@ -1,5 +1,7 @@
-import AxiosClient from './AxiosClient';
 import {Platform} from 'react-native';
+import _ from 'lodash';
+import AxiosClient from './AxiosClient';
+import Person from '../models/Person';
 
 const axiosClient = AxiosClient.shared();
 
@@ -25,12 +27,15 @@ class AppClient {
     return new Promise((resolve, reject) => {
       startRequest();
       axiosClient(axiosData)
-        .then(response => {
-          resolve(response);
-        })
-        .catch(error => {
-          reject(Error(error.message));
-        })
+        .then(
+          response => {
+            resolve(response);
+          },
+          error => {
+            console.tron.log('An error occurred.', error.message);
+            reject(error);
+          },
+        )
         .finally(endRequest());
     });
   }
@@ -55,6 +60,18 @@ class AppClient {
         })
         .finally(endRequest());
     });
+  }
+
+  static getRandomPerson() {
+    const axiosData = {method: 'get', randomapi: ''};
+    const successCallback = response => {
+      if (response.status !== 200) {
+        return null;
+      }
+      const person = Person.toObjectFromJSON(response.data.results[0]);
+      return person;
+    };
+    return this.sendAxiosRequest(axiosData).then(successCallback);
   }
 }
 
