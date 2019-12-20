@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Text, View, StyleSheet} from 'react-native';
-import {commonStyles} from '../../theme';
+import {Text, View, StyleSheet, Button} from 'react-native';
+import {commonStyles, AppColorPallete} from '../../theme';
 import Card from '../../components/Card';
 import CircleImage from '../../components/CircleImage';
-import {FlatList} from 'react-native-gesture-handler';
+import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import {scale} from 'react-native-size-matters';
+import {clearListFavoritePerson} from '../../redux/actions/randomPerson';
 
 const styles = StyleSheet.create({
   favItemContainer: {
@@ -43,6 +44,32 @@ const FavoriteItem = ({avatarURL, title, description}) => (
 );
 
 class FavoritesScreen extends Component {
+  static navigationOptions = ({navigation}) => ({
+    headerRight: () => (
+      <TouchableOpacity
+        style={{paddingLeft: 16, paddingRight: 16}}
+        hitSlop={{top: 16, bottom: 16, right: 16, left: 16}}
+        onPress={navigation.getParam('clearAll')}>
+        <Text
+          style={{
+            color: AppColorPallete.light.primary,
+            fontSize: 14,
+            fontWeight: '600',
+          }}>
+          {'Clear All'}
+        </Text>
+      </TouchableOpacity>
+    ),
+  });
+
+  componentDidMount() {
+    this.props.navigation.setParams({clearAll: this.onClearAllButtonPress});
+  }
+
+  onClearAllButtonPress = () => {
+    this.props.clearListFavoritePerson();
+  };
+
   renderFavoriteItem = ({item, index}) => (
     <FavoriteItem
       avatarURL={item.avatarURL}
@@ -69,8 +96,12 @@ class FavoritesScreen extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  clearListFavoritePerson: person => dispatch(clearListFavoritePerson(person)),
+});
+
 const mapStateToProps = state => ({
   listFavoritePerson: state.listFavoritePerson,
 });
 
-export default connect(mapStateToProps, null)(FavoritesScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(FavoritesScreen);

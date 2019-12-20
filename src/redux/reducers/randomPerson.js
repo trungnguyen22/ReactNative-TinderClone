@@ -2,6 +2,7 @@ import {
   UPDATE_LIST_RANDOM_PERSON,
   IS_GETTING_RANDOM_PERSON,
   UPDATE_LIST_FAVORITE_PERSON,
+  CLEAR_LIST_FAVORITE_PERSON,
 } from '../actions/types/RandomPersonTypes';
 
 export function listRandomPerson(state = [], action) {
@@ -14,6 +15,9 @@ export function listRandomPerson(state = [], action) {
 export function listFavoritePerson(state = [], action) {
   if (action.type === UPDATE_LIST_FAVORITE_PERSON) {
     return [...state, action.payload];
+  }
+  if (action.type === CLEAR_LIST_FAVORITE_PERSON) {
+    return [];
   }
   return state;
 }

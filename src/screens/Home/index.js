@@ -49,6 +49,7 @@ class HomeScreen extends Component {
         this.props.fetchRandomPerson();
         break;
       case 'top':
+        this.props.updateListFavoritePerson(listRandomPerson[index]);
         this.props.fetchRandomPerson();
         break;
     }

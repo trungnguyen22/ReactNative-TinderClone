@@ -2,6 +2,7 @@ import {
   IS_GETTING_RANDOM_PERSON,
   UPDATE_LIST_RANDOM_PERSON,
   UPDATE_LIST_FAVORITE_PERSON,
+  CLEAR_LIST_FAVORITE_PERSON,
 } from './types/RandomPersonTypes';
 import AppClient from '../../networkings/AppClient';
 import _ from 'lodash';
@@ -24,6 +25,12 @@ export function updateListFavoritePerson(person) {
   return {
     type: UPDATE_LIST_FAVORITE_PERSON,
     payload: person,
+  };
+}
+
+export function clearListFavoritePerson() {
+  return {
+    type: CLEAR_LIST_FAVORITE_PERSON,
   };
 }
 
