@@ -33,7 +33,12 @@ const HomeStackNavigator = createStackNavigator(
 
 const FavoriteStackNavigator = createStackNavigator(
   {
-    [SCREEN_STACK_ROUTE_NAME.Favorites]: {screen: FavoritesScreen},
+    [SCREEN_STACK_ROUTE_NAME.Favorites]: {
+      screen: FavoritesScreen,
+      navigationOptions: {
+        headerTitle: 'Favorites',
+      },
+    },
   },
   {
     initialRouteName: SCREEN_STACK_ROUTE_NAME.Favorites,
