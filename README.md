@@ -1,6 +1,13 @@
 # ReactNative-TinderClone
 
-## Feature
+## Acknowledge
+
+- Using Redux Thunk, and Redux Persist Store for middleware
+- Using Axios for HTTP Requests
+- Using React Navigation for navigation
+- Using Reactotron for monitoring app activities and redux actions
+
+## Features
 
 - Show Card Swiper like Tinder App
 - Custom animated Card view
@@ -20,7 +27,7 @@
 ### Aditional step: 
 - `react-native link` to link assets
 
-### Demo
+## Demo
 
 <p align="center">
 
