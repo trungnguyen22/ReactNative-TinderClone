@@ -1,6 +1,30 @@
 # ReactNative-TinderClone
 
-## Feature
+## Demo
+
+<p align="center">
+
+  <img src="https://github.com/trungnguyen22/ReactNative-TinderClone/blob/master/art/demogif2.gif" width="650" alt="accessibility text">
+</p>
+
+<p align="center">
+
+<img src="https://github.com/trungnguyen22/ReactNative-TinderClone/blob/master/art/demogif.gif" width="650" alt="accessibility text">
+</p>
+
+<p align="center">  
+  <img src="https://github.com/trungnguyen22/ReactNative-TinderClone/blob/master/art/demo1.jpeg" width="350" alt="accessibility text">
+  <img src="https://github.com/trungnguyen22/ReactNative-TinderClone/blob/master/art/demo2.png" width="350" title="hover text">
+</p>
+
+## Acknowledge
+
+- Using Redux Thunk, and Redux Persist Store for middleware
+- Using Axios for HTTP Requests
+- Using React Navigation for navigation
+- Using Reactotron for monitoring app activities and redux actions
+
+## Features
 
 - Show Card Swiper like Tinder App
 - Custom animated Card view
@@ -17,24 +41,7 @@
 ### Step 3: Run iOS or Android
 - `cd .. && react-native run-ios` or `cd .. && react-native run-android`
 
-### Aditional step: 
+### Additional step: 
 - `react-native link` to link assets
-
-### Demo
-
-<p align="center">
-
-  <img src="https://github.com/trungnguyen22/ReactNative-TinderClone/blob/master/art/demogif2.gif" width="650" alt="accessibility text">
-</p>
-
-<p align="center">
-
-<img src="https://github.com/trungnguyen22/ReactNative-TinderClone/blob/master/art/demogif.gif" width="650" alt="accessibility text">
-</p>
-
-<p align="center">  
-  <img src="https://github.com/trungnguyen22/ReactNative-TinderClone/blob/master/art/demo1.jpeg" width="350" alt="accessibility text">
-  <img src="https://github.com/trungnguyen22/ReactNative-TinderClone/blob/master/art/demo2.png" width="350" title="hover text">
-</p>
 
 
