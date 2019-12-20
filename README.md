@@ -23,8 +23,13 @@
 ### Demo
 
 <p align="center">
-  <img src="https://github.com/trungnguyen22/ReactNative-TinderClone/blob/master/art/demogif2.gif" width="350" alt="accessibility text">
-<img src="https://github.com/trungnguyen22/ReactNative-TinderClone/blob/master/art/demogif.gif" width="350" alt="accessibility text">
+
+  <img src="https://github.com/trungnguyen22/ReactNative-TinderClone/blob/master/art/demogif2.gif" width="650" alt="accessibility text">
+</p>
+
+<p align="center">
+
+<img src="https://github.com/trungnguyen22/ReactNative-TinderClone/blob/master/art/demogif.gif" width="650" alt="accessibility text">
 </p>
 
 <p align="center">  
