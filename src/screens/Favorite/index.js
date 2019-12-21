@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Text, View, StyleSheet, Button} from 'react-native';
+import {Text, View, StyleSheet, Alert} from 'react-native';
+import _ from 'lodash';
+
 import {commonStyles, AppColorPallete} from '../../theme';
 import Card from '../../components/Card';
 import CircleImage from '../../components/CircleImage';
 import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import {scale} from 'react-native-size-matters';
 import {clearListFavoritePerson} from '../../redux/actions/randomPerson';
+import EmptyData from '../../components/Empty';
 
 const styles = StyleSheet.create({
   favItemContainer: {
@@ -67,7 +70,20 @@ class FavoritesScreen extends Component {
   }
 
   onClearAllButtonPress = () => {
-    this.props.clearListFavoritePerson();
+    Alert.alert(
+      'Clear All',
+      'Do you want to clear all your favorite people ?',
+      [
+        {text: 'Cancel', style: 'cancel'},
+        {
+          text: 'Ok',
+          onPress: () => {
+            this.props.clearListFavoritePerson();
+          },
+          style: 'default',
+        },
+      ],
+    );
   };
 
   renderFavoriteItem = ({item, index}) => (
@@ -90,7 +106,12 @@ class FavoritesScreen extends Component {
     const {listFavoritePerson} = this.props;
     return (
       <View style={[commonStyles.container, {padding: 8}]}>
-        {this.renderFavoriteList(listFavoritePerson)}
+        {/* {this.renderFavoriteList(listFavoritePerson)} */}
+        {_.isEmpty(listFavoritePerson) ? (
+          <EmptyData message="Let's swipe right more !!!" hideReloadButton />
+        ) : (
+          this.renderFavoriteList(listFavoritePerson)
+        )}
       </View>
     );
   }
