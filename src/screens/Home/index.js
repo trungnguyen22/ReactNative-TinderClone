@@ -85,7 +85,10 @@ class HomeScreen extends Component {
           onSwiped={this.onSwiped}
         />
         {_.isEmpty(listRandomPerson) && (
-          <EmptyData onReloadPress={this.onReloadPress} />
+          <EmptyData
+            message="Data is not available. There is something wrong."
+            onReloadPress={this.onReloadPress}
+          />
         )}
         {isGettingRandomPerson && this.onlyShowLoadingAtTheFirstTime ? (
           <FullscreenLoading />
