@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
+    this.onlyShowLoadingAtTheFirstTime = true;
   }
 
   preloadData = () => {
@@ -33,6 +34,10 @@ class HomeScreen extends Component {
 
   componentDidMount() {
     this.preloadData();
+  }
+
+  componentDidUpdate() {
+    this.onlyShowLoadingAtTheFirstTime = false;
   }
 
   onUserCardPress = (item, index) => {};
@@ -72,18 +77,19 @@ class HomeScreen extends Component {
     const {listRandomPerson, isGettingRandomPerson} = this.props;
     return (
       <View style={commonStyles.container}>
-        {!_.isEmpty(listRandomPerson) ? (
-          <CardSwiper
-            containerStyle={styles.swiper}
-            dataSource={listRandomPerson}
-            cardIndex={0}
-            renderCard={this.renderCard}
-            onSwiped={this.onSwiped}
-          />
-        ) : (
+        <CardSwiper
+          containerStyle={styles.swiper}
+          dataSource={listRandomPerson}
+          cardIndex={0}
+          renderCard={this.renderCard}
+          onSwiped={this.onSwiped}
+        />
+        {_.isEmpty(listRandomPerson) && (
           <EmptyData onReloadPress={this.onReloadPress} />
         )}
-        {isGettingRandomPerson ? <FullscreenLoading /> : null}
+        {isGettingRandomPerson && this.onlyShowLoadingAtTheFirstTime ? (
+          <FullscreenLoading />
+        ) : null}
       </View>
     );
   }
