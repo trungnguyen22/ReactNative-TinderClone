@@ -55,21 +55,23 @@ class HomeScreen extends Component {
   onSwiped = (type, index) => {
     const {listRandomPerson} = this.props;
     const person = listRandomPerson[index];
-    switch (type) {
-      case 'right':
-        this.props.updateListFavoritePerson(person);
-        this.props.deleteRandomPerson(person.phone);
-        this.props.fetchRandomPerson();
-        break;
-      case 'left':
-        this.props.deleteRandomPerson(person.phone);
-        this.props.fetchRandomPerson();
-        break;
-      case 'top':
-        this.props.updateListFavoritePerson(listRandomPerson[index]);
-        this.props.deleteRandomPerson(person.phone);
-        this.props.fetchRandomPerson();
-        break;
+    if (person) {
+      switch (type) {
+        case 'right':
+          this.props.updateListFavoritePerson(person);
+          this.props.deleteRandomPerson(person.phone);
+          this.props.fetchRandomPerson();
+          break;
+        case 'left':
+          this.props.deleteRandomPerson(person.phone);
+          this.props.fetchRandomPerson();
+          break;
+        case 'top':
+          this.props.updateListFavoritePerson(listRandomPerson[index]);
+          this.props.deleteRandomPerson(person.phone);
+          this.props.fetchRandomPerson();
+          break;
+      }
     }
   };
 
