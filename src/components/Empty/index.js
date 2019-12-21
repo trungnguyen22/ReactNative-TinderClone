@@ -21,21 +21,26 @@ const styles = StyleSheet.create({
   },
 });
 
-const EmptyData = ({onReloadPress}) => (
-  <View style={styles.container}>
+const EmptyData = ({
+  containerStyle,
+  message,
+  hideReloadButton,
+  onReloadPress,
+}) => (
+  <View style={[styles.container, containerStyle]}>
     <Image
       style={styles.image}
       source={require('../../assets/images/ic_open_box_64.png')}
     />
-    <Text style={styles.text}>
-      {'Data is not available. There is something wrong.'}
-    </Text>
-    <TouchableOpacity onPress={onReloadPress}>
-      <Image
-        style={styles.reloadImg}
-        source={require('../../assets/images/ic_reload_64.png')}
-      />
-    </TouchableOpacity>
+    <Text style={styles.text}>{message}</Text>
+    {!hideReloadButton ? (
+      <TouchableOpacity onPress={onReloadPress}>
+        <Image
+          style={styles.reloadImg}
+          source={require('../../assets/images/ic_reload_64.png')}
+        />
+      </TouchableOpacity>
+    ) : null}
   </View>
 );
 
