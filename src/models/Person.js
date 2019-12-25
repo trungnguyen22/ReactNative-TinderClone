@@ -67,6 +67,7 @@ export default class Person {
     person.fullName = `${capitalizeFLetter(
       json.user.name.first,
     )} ${capitalizeFLetter(json.user.name.last)}`;
+    person.email = json.user.email;
     person.location = json.user.location;
     person.address = `${capitalizeFLetter(
       json.user.location.street,

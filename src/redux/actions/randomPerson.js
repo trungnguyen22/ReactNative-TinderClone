@@ -35,10 +35,10 @@ export function clearListFavoritePerson() {
   };
 }
 
-export function deleteRandomPerson(phone) {
+export function deleteRandomPerson(person) {
   return {
     type: DELETE_RANDOM_PERSON,
-    payload: phone,
+    payload: person,
   };
 }
 

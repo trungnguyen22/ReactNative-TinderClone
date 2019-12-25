@@ -12,9 +12,9 @@ export function listRandomPerson(state = [], action) {
     case UPDATE_LIST_RANDOM_PERSON:
       return [...state, action.payload];
     case DELETE_RANDOM_PERSON:
-      return state.filter(
-        person => !_.isEqual(person.phone, action.payload.phone),
-      );
+      return state.filter(person => {
+        return !_.isEqual(person.email, action.payload.email);
+      });
   }
   return state;
 }
