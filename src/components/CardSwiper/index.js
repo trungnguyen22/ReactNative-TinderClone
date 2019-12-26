@@ -4,7 +4,6 @@ import {AppColorPallete} from '../../theme';
 
 const STACK_SIZE = 3;
 const STACK_SEPERATION = 15;
-
 const OVERLAY_LABELS_OBJ = {
   bottom: {
     title: 'BLEAH',
@@ -74,6 +73,12 @@ const OVERLAY_LABELS_OBJ = {
       },
     },
   },
+};
+
+export const SWIPE_TYPE = {
+  RIGHT: 'right',
+  LEFT: 'left',
+  TOP: 'top',
 };
 
 class CardSwiper extends PureComponent {

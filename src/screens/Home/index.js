@@ -4,7 +4,7 @@ import {View, StyleSheet} from 'react-native';
 import _ from 'lodash';
 
 import {commonStyles, AppColorPallete} from '../../theme';
-import CardSwiper from '../../components/CardSwiper';
+import CardSwiper, {SWIPE_TYPE} from '../../components/CardSwiper';
 import {UserCard} from '../../components/UserCard';
 import {
   fetchRandomPerson,
@@ -26,12 +26,6 @@ class HomeScreen extends Component {
     this.onlyShowLoadingAtTheFirstTime = true;
   }
 
-  preloadData = () => {
-    for (let i = 0; i < 5; i += 1) {
-      this.props.fetchRandomPerson();
-    }
-  };
-
   componentDidMount() {
     this.preloadData();
   }
@@ -40,7 +34,50 @@ class HomeScreen extends Component {
     this.onlyShowLoadingAtTheFirstTime = false;
   }
 
-  onUserCardPress = (item, index) => {};
+  preFetchSomeRandomPerson(listRandomPerson) {
+    if (_.isEmpty(listRandomPerson)) {
+      this.props.fetchRandomPerson();
+      this.props.fetchRandomPerson();
+      this.props.fetchRandomPerson();
+      this.props.fetchRandomPerson();
+    }
+  }
+
+  preloadData = () => {
+    const {listRandomPerson} = this.props;
+    this.preFetchSomeRandomPerson(listRandomPerson);
+  };
+
+  handleOnSwiped = (type, index) => {
+    const {listRandomPerson} = this.props;
+    const person = listRandomPerson[index];
+    if (!_.isEmpty(listRandomPerson)) {
+      switch (type) {
+        case SWIPE_TYPE.RIGHT:
+          this.props.updateListFavoritePerson(person);
+          this.props.fetchRandomPerson();
+          // this.props.deleteRandomPerson(person);
+          break;
+        case SWIPE_TYPE.LEFT:
+          this.props.fetchRandomPerson();
+          // this.props.deleteRandomPerson(person);
+          break;
+        case SWIPE_TYPE.TOP:
+          this.props.updateListFavoritePerson(listRandomPerson[index]);
+          this.props.fetchRandomPerson();
+          // this.props.deleteRandomPerson(person);
+          break;
+      }
+    }
+  };
+
+  onUserCardPress = (item, index) => {
+    // TODO: When click on card, move to PersonInfoDetailsScreen
+  };
+
+  onSwiped = (type, index) => {
+    this.handleOnSwiped(type, index);
+  };
 
   onReloadPress = () => {
     this.preloadData();
@@ -52,49 +89,32 @@ class HomeScreen extends Component {
     ) : null;
   };
 
-  onSwiped = (type, index) => {
-    const {listRandomPerson} = this.props;
-    const person = listRandomPerson[index];
-    if (person) {
-      switch (type) {
-        case 'right':
-          this.props.fetchRandomPerson();
-          this.props.updateListFavoritePerson(person);
-          this.props.deleteRandomPerson(person);
-          break;
-        case 'left':
-          this.props.fetchRandomPerson();
-          this.props.deleteRandomPerson(person);
-          break;
-        case 'top':
-          this.props.fetchRandomPerson();
-          this.props.updateListFavoritePerson(listRandomPerson[index]);
-          this.props.deleteRandomPerson(person);
-          break;
-      }
-    }
-  };
+  renderCardSwiper = listRandomPerson => (
+    <CardSwiper
+      containerStyle={styles.swiper}
+      dataSource={listRandomPerson}
+      cardIndex={0}
+      renderCard={this.renderCard}
+      onSwiped={this.onSwiped}
+    />
+  );
+
+  renderEmptyData = () => (
+    <EmptyData
+      message="Data is not available. There is something wrong."
+      onReloadPress={this.onReloadPress}
+    />
+  );
 
   render() {
     const {listRandomPerson, isGettingRandomPerson} = this.props;
+    const showLoading =
+      isGettingRandomPerson && this.onlyShowLoadingAtTheFirstTime;
     return (
       <View style={commonStyles.container}>
-        <CardSwiper
-          containerStyle={styles.swiper}
-          dataSource={listRandomPerson}
-          cardIndex={0}
-          renderCard={this.renderCard}
-          onSwiped={this.onSwiped}
-        />
-        {_.isEmpty(listRandomPerson) && (
-          <EmptyData
-            message="Data is not available. There is something wrong."
-            onReloadPress={this.onReloadPress}
-          />
-        )}
-        {isGettingRandomPerson && this.onlyShowLoadingAtTheFirstTime ? (
-          <FullscreenLoading />
-        ) : null}
+        {this.renderCardSwiper(listRandomPerson)}
+        {_.isEmpty(listRandomPerson) ? this.renderEmptyData() : null}
+        {showLoading ? <FullscreenLoading /> : null}
       </View>
     );
   }
