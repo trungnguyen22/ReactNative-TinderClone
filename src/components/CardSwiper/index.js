@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import Swiper from 'react-native-deck-swiper';
 import {AppColorPallete} from '../../theme';
+import { scale } from 'react-native-size-matters';
 
 const STACK_SIZE = 3;
 const STACK_SEPERATION = 15;
@@ -29,6 +30,7 @@ const OVERLAY_LABELS_OBJ = {
         borderColor: AppColorPallete.light.overlayLabelCardSwiperSkipped,
         color: AppColorPallete.light.overlayLabelCardSwiperSkipped,
         borderWidth: 4,
+        transform: [{rotate: '45deg'}],
       },
       wrapper: {
         flexDirection: 'column',
@@ -47,6 +49,7 @@ const OVERLAY_LABELS_OBJ = {
         borderColor: AppColorPallete.light.overlayLabelCardSwiperLiked,
         color: AppColorPallete.light.overlayLabelCardSwiperLiked,
         borderWidth: 4,
+        transform: [{rotate: '-45deg'}],
       },
       wrapper: {
         flexDirection: 'column',
@@ -65,11 +68,12 @@ const OVERLAY_LABELS_OBJ = {
         borderColor: AppColorPallete.light.overlayLabelCardSwiperSuperLike,
         color: AppColorPallete.light.overlayLabelCardSwiperSuperLike,
         borderWidth: 4,
+        marginTop: scale(150),
       },
       wrapper: {
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
       },
     },
   },
@@ -89,6 +93,7 @@ class CardSwiper extends PureComponent {
 
   render() {
     const {
+      refSwiper,
       containerStyle,
       dataSource,
       cardIndex,
@@ -97,16 +102,12 @@ class CardSwiper extends PureComponent {
     } = this.props;
     return (
       <Swiper
-        ref={swiper => {
-          this.swiper = swiper;
-        }}
+        ref={refSwiper}
         containerStyle={containerStyle}
-        onSwiped={index => this.onSwiped('general', index)}
         onSwipedLeft={index => this.onSwiped('left', index)}
         onSwipedRight={index => this.onSwiped('right', index)}
         onSwipedTop={index => this.onSwiped('top', index)}
         onSwipedBottom={index => this.onSwiped('bottom', index)}
-        onTapCard={this.swipeLeft}
         cards={dataSource}
         cardIndex={cardIndex}
         renderCard={renderCard}
