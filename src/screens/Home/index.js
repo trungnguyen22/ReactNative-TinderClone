@@ -23,23 +23,17 @@ const styles = StyleSheet.create({
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
-    this.onlyShowLoadingAtTheFirstTime = true;
   }
 
   componentDidMount() {
     this.preloadData();
   }
 
-  componentDidUpdate() {
-    this.onlyShowLoadingAtTheFirstTime = false;
-  }
-
   preFetchSomeRandomPerson(listRandomPerson) {
     if (_.isEmpty(listRandomPerson)) {
-      this.props.fetchRandomPerson();
-      this.props.fetchRandomPerson();
-      this.props.fetchRandomPerson();
-      this.props.fetchRandomPerson();
+      for (let i = 0; i < 5; i += 1) {
+        this.props.fetchRandomPerson();
+      }
     }
   }
 
@@ -50,22 +44,19 @@ class HomeScreen extends Component {
 
   handleOnSwiped = (type, index) => {
     const {listRandomPerson} = this.props;
-    const person = listRandomPerson[index];
     if (!_.isEmpty(listRandomPerson)) {
+      const person = listRandomPerson[index];
       switch (type) {
         case SWIPE_TYPE.RIGHT:
           this.props.updateListFavoritePerson(person);
           this.props.fetchRandomPerson();
-          // this.props.deleteRandomPerson(person);
           break;
         case SWIPE_TYPE.LEFT:
           this.props.fetchRandomPerson();
-          // this.props.deleteRandomPerson(person);
           break;
         case SWIPE_TYPE.TOP:
-          this.props.updateListFavoritePerson(listRandomPerson[index]);
+          this.props.updateListFavoritePerson(person);
           this.props.fetchRandomPerson();
-          // this.props.deleteRandomPerson(person);
           break;
       }
     }
@@ -85,15 +76,22 @@ class HomeScreen extends Component {
 
   renderCard = (card, index) => {
     return card ? (
-      <UserCard item={card} index={index} onCardPress={this.onUserCardPress} />
+      <UserCard
+        key={card.registered}
+        item={card}
+        index={index}
+        onCardPress={this.onUserCardPress}
+      />
     ) : null;
   };
 
   renderCardSwiper = listRandomPerson => (
     <CardSwiper
+      refSwiper={ref => {
+        this.cardSwiper = ref;
+      }}
       containerStyle={styles.swiper}
       dataSource={listRandomPerson}
-      cardIndex={0}
       renderCard={this.renderCard}
       onSwiped={this.onSwiped}
     />
