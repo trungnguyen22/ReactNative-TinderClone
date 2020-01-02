@@ -17,19 +17,20 @@
   <img src="https://github.com/trungnguyen22/ReactNative-TinderClone/blob/master/art/demo2.png" width="350" title="hover text">
 </p>
 
-## Acknowledge
+## Content
 
-- Using Redux Thunk, and Redux Persist Store for middleware
-- Using Axios for HTTP Requests
-- Using React Navigation for navigation
-- Using Reactotron for monitoring app activities and redux actions
+- Complete setup Redux.
+- Using Redux Thunk, and Redux Persist Store for middleware.
+- Basic setup Axios client class wrapper for HTTP Requests.
+- Complete setup React Navigation with bottom app bar.
+- Using Reactotron for inspecting app.
 
 ## Features
 
 - Show Card Swiper like Tinder App
 - Custom animated Card view
-- Fetching the list of random person from API
-- If swipe right, save that person to list favorite
+- Fetching the list of random person from API.
+- If swipe right, save that person to list favorite.
 - Persist list favorite
 
 ## Get Started
