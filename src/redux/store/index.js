@@ -12,7 +12,7 @@ const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   // Whitelist (Save specific reducers)
-  whitelist: ['todos', 'listRandomPerson', 'listFavoritePerson'],
+  whitelist: ['todos', 'listFavoritePerson'],
   // Blacklist (Don't save specific reducers)
   blacklist: [],
 };
