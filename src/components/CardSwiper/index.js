@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import Swiper from 'react-native-deck-swiper';
 import {AppColorPallete} from '../../theme';
-import { scale } from 'react-native-size-matters';
+import {scale} from 'react-native-size-matters';
 
 const STACK_SIZE = 3;
 const STACK_SEPERATION = 15;
@@ -96,7 +96,7 @@ class CardSwiper extends PureComponent {
       refSwiper,
       containerStyle,
       dataSource,
-      cardIndex,
+      cardIndex = 0,
       renderCard,
       overlayLabels = OVERLAY_LABELS_OBJ,
     } = this.props;
